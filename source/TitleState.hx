@@ -132,7 +132,6 @@ class TitleState extends MusicBeatState
 		Mods.pushGlobalMods();
 		#end
 		// Just to load a mod on start up if ya got one. For mods that change the menu music and bg
-		Mods.loadTopMod();
 
 		super.create(); //create the script after the loading mod and prefs
 

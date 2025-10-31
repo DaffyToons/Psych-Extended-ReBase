@@ -111,7 +111,6 @@ class FreeplayState extends MusicBeatState
 				trace(songExample);
 			}
 		}
-		Mods.loadTopMod();
 
 		bg = new FlxSprite().loadGraphic(Paths.image('menuDesat'));
 		bg.antialiasing = ClientPrefs.data.antialiasing;

@@ -11,9 +11,6 @@ import openfl.events.KeyboardEvent;
 
 class EditorPlayState extends MusicBeatSubstate
 {
-	#if TOUCH_CONTROLS
-	public var playerNotePositionsFixed:Array<Int> = [-360, -140, 140, 360];
-	#end
 	// Borrowed from original PlayState
 	var finishTimer:FlxTimer = null;
 	var noteKillOffset:Float = 350;
@@ -180,8 +177,7 @@ class EditorPlayState extends MusicBeatSubstate
 
 		#if TOUCH_CONTROLS
 		addMobileControls();
-		if (ClientPrefs.data.hitboxmode != 'Classic' && !ClientPrefs.data.hitboxhint) mobilec.instance.alpha = 0.000001;
-		if (ClientPrefs.data.VSliceControl && !PlayState.SONG.disableVSliceControls) enableVSliceControls();
+		mobilec.instance.visible = true;
 		#end
 
 		generateSong();
@@ -974,32 +970,4 @@ class EditorPlayState extends MusicBeatSubstate
 
 	function updateScore()
 		scoreTxt.text = 'Hits: $songHits | Misses: $songMisses';
-
-	/* V-Slice Mobile Controls */
-	#if TOUCH_CONTROLS
-	public function enableVSliceControls() {
-		//I took this from PsychEngine's discord server and make it to work with HScript Improved (.hsc), now I'm using it on source code 😂
-		// Credit: @allaxnofake (Discord)
-		// https://discord.com/channels/922849922175340586/1395222169037836430 (This link sends you to directly the original post, if you joined the PsychEngine Server)
-		for (i in 0...unspawnNotes.length)
-		{
-			if (!unspawnNotes[i].mustPress)
-				unspawnNotes[i].visible = false;
-		}
-		for (i in 0...4) {
-			opponentStrums.members[i].y = 40;
-			//playerStrums.members[i].y = 550;
-			opponentStrums.members[i].x = 10 + (i * 65);
-			playerStrums.members[i].screenCenter(X);
-			playerStrums.members[i].x += playerNotePositionsFixed[i];
-			opponentStrums.members[i].scale.x = opponentStrums.members[i].scale.x / 1.75;
-			opponentStrums.members[i].scale.y = opponentStrums.members[i].scale.y / 1.75;
-		}
-		//use More Resulation Friendly one
-		removeMobileControls();
-		addMobileControls("V Slice");
-		mobilec.instance.cameras = [camHUD]; //Visual Fix (Honestly not needed because you can't see hitboxes)
-		mobilec.instance.visible = false; //hides the hitbox (better visuality, bitch)
-	}
-	#end
 }

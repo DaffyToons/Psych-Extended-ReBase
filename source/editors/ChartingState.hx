@@ -1785,23 +1785,23 @@ class ChartingState extends MusicBeatState
 						{
 							if (touch.overlaps(note))
 							{
-								#if TOUCH_CONTROLS
-								if (mobilePad.buttonF.pressed)
-								{
-									selectNote(note);
-								}
-								#end
-								else if (FlxG.keys.pressed.ALT)
+								if (FlxG.keys.pressed.ALT)
 								{
 									selectNote(note);
 									curSelectedNote[3] = curNoteTypes[currentType];
 									updateGrid();
 								}
+                                #if TOUCH_CONTROLS
+								else if (mobilePad.buttonF.pressed)
+								{
+									selectNote(note);
+								}
+								#end 
 								else
 								{
 									// trace('tryin to delete note...');
 									deleteNote(note);
-								}
+                                }
 							}
 						});
 					}
